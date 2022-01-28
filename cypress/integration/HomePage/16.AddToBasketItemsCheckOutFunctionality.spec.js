@@ -2,10 +2,10 @@ import Home from '../../pageObjects/Home'
 import Shop from '../../pageObjects/Shop'
 import Item from '../../pageObjects/Item'
 import Basket from '../../pageObjects/Basket'
-import data from '../../fixtures/data'
+import Checkout from '../../pageObjects/Checkout'
 
-describe('Arrivals Add to Basket books and use coupon for item less than 450', () => {
-  it('Should add to Basket books and use coupon for item less than 450', () => {
+describe('Arrivals Add to Basket items add book', () => {
+  it('Should add to Basket items, add book', () => {
     Home.visit().clickShopMenu()
 
     Shop.clickHomeMenu()
@@ -14,6 +14,8 @@ describe('Arrivals Add to Basket books and use coupon for item less than 450', (
 
     Item.clickAddBtn().clickCartBtn()
 
-    Basket.addCoupon(data.coupon).clickApplyCoupon().getErrorMessage()
+    Basket.clickCheckout()
+
+    Checkout.verifyUrl().verifyTotalMoreSubtotal()
   })
 })

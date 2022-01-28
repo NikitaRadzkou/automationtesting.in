@@ -3,6 +3,7 @@ import Shop from '../../pageObjects/Shop'
 import Item from '../../pageObjects/Item'
 import Basket from '../../pageObjects/Basket'
 import Checkout from '../../pageObjects/Checkout'
+import data from '../../fixtures/data'
 
 describe('Arrivals Add to Basket items add book', () => {
   it('Should add to Basket items, add book', () => {
@@ -20,7 +21,7 @@ describe('Arrivals Add to Basket items add book', () => {
 
     Basket.visit()
       .verifyUpdateDisbled()
-      .changeQuantity('2')
+      .changeQuantity(data.countBooks)
       .clickUpdate()
       .getUpdatedMessage()
       .clickCheckout()

@@ -26,8 +26,98 @@ class Checkout {
     return cy.get('strong > .woocommerce-Price-amount')
   }
 
+  get firstName() {
+    return cy.get('#billing_first_name_field')
+  }
+
+  get lastName() {
+    return cy.get('#billing_last_name_field')
+  }
+
+  get companyName() {
+    return cy.get('#billing_company_field')
+  }
+
+  get emailAddress() {
+    return cy.get('#billing_email_field')
+  }
+
+  get phone() {
+    return cy.get('#billing_phone_field')
+  }
+
+  get country() {
+    return cy.get('#billing_country_field')
+  }
+
+  get streetAddress() {
+    return cy.get('#billing_address_1_field')
+  }
+
+  get apartmentAddress() {
+    return cy.get('#billing_address_2')
+  }
+
+  get city() {
+    return cy.get('#billing_city_field')
+  }
+
+  get state() {
+    return cy.get('#billing_state_field')
+  }
+
+  get postcode() {
+    return cy.get('#billing_postcode_field')
+  }
+
+  get checkboxCreateAnAccount() {
+    return cy.get('#createaccount')
+  }
+
+  get orderNotes() {
+    return cy.get('#order_comments')
+  }
+
+  get coupon() {
+    return cy.get('.showcoupon')
+  }
+
   visit() {
-    return cy.visit('/checkout')
+    cy.visit('/checkout')
+    return this
+  }
+
+  verifyUrl() {
+    cy.url().should('include', '/checkout')
+    return this
+  }
+
+  addCoupon(value) {
+    this.coupon.click()
+    cy.get('[name=coupon_code]').type(value)
+    return this
+  }
+
+  verifyVisibleAndRequiredAllElements() {
+    this.firstName.should('be.visible').and('have.class', 'validate-required')
+    this.lastName.should('be.visible').and('have.class', 'validate-required')
+    this.companyName.should('be.visible')
+    this.emailAddress
+      .should('be.visible')
+      .and('have.class', 'validate-required')
+    this.phone.should('be.visible').and('have.class', 'validate-required')
+    this.country.should('be.visible').and('have.class', 'validate-required')
+    this.streetAddress
+      .should('be.visible')
+      .and('have.class', 'validate-required')
+    this.apartmentAddress.should('be.visible')
+    this.city.should('be.visible').and('have.class', 'validate-required')
+    this.state.should('be.visible').and('have.class', 'validate-required')
+    this.postcode.should('be.visible').and('have.class', 'validate-required')
+    this.checkboxCreateAnAccount.should('be.visible')
+    this.orderNotes.should('be.visible')
+
+    return this
   }
 
   verifyTotalMoreSubtotal() {

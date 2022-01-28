@@ -5,8 +5,8 @@ import Basket from '../../pageObjects/Basket'
 import Checkout from '../../pageObjects/Checkout'
 import data from '../../fixtures/data'
 
-describe('Arrivals Add to Basket books', () => {
-  it('Should add to Basket books', () => {
+describe('Arrivals Add to Basket items check out payment gateway place order', () => {
+  it('Should add to Basket items check out payment gateway place order', () => {
     Home.visit().clickShopMenu()
 
     Shop.clickHomeMenu()
@@ -17,6 +17,11 @@ describe('Arrivals Add to Basket books', () => {
 
     Basket.clickCheckout()
 
-    Checkout.verifyPrice().verifyTitle(data.title)
+    Checkout.verifyUrl()
+      .verifyVisibleAndRequiredAllElements()
+      .addCoupon(data.coupon)
+      .verifyTotalMoreSubtotal()
+
+    // Incomplete, add logic!
   })
 })

@@ -3,6 +3,7 @@ import Shop from '../../pageObjects/Shop'
 import Item from '../../pageObjects/Item'
 import Basket from '../../pageObjects/Basket'
 import Checkout from '../../pageObjects/Checkout'
+import data from '../../fixtures/data'
 
 describe('Arrivals Add to Basket books and use coupon', () => {
   it('Should add to Basket books and use coupon', () => {
@@ -12,10 +13,10 @@ describe('Arrivals Add to Basket books and use coupon', () => {
 
     Home.getArrivals().clickAllArrivals()
 
-    Item.addMultipleBooks('2').clickAddBtn().clickCartBtn()
+    Item.addMultipleBooks(data.countBooks).clickAddBtn().clickCartBtn()
 
-    Basket.addCoupon('krishnasakinala').clickApplyCoupon().clickCheckout()
+    Basket.addCoupon(data.coupon).clickApplyCoupon().clickCheckout()
 
-    Checkout.verifyPriceCoupon().verifyTitle('/product/mastering-javascript/')
+    Checkout.verifyPriceCoupon().verifyTitle(data.title)
   })
 })
