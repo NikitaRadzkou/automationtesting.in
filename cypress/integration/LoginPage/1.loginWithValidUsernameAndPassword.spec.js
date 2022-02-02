@@ -9,6 +9,6 @@ describe('Login with valid username and password', () => {
     Account.typeLoginEmail(data.email)
       .typeLoginPassword(data.password)
       .clickLoginBtn()
-      .verifySuccessfullMessage(data.login)
+      .verifySuccessfullMessage()
   })
 })
