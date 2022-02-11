@@ -46,7 +46,7 @@ class Checkout {
     return cy.get('#billing_phone_field')
   }
 
-  get country() {
+  get countryField() {
     return cy.get('#billing_country_field')
   }
 
@@ -66,8 +66,20 @@ class Checkout {
     return cy.get('#billing_state_field')
   }
 
+  get specialState() {
+    return cy.get('.select2-results-dept-0')
+  }
+
   get postcode() {
     return cy.get('#billing_postcode_field')
+  }
+
+  get country() {
+    return cy.get('.select2-input')
+  }
+
+  get textSpecialCountry() {
+    return cy.get('#select2-result-label-459')
   }
 
   get checkboxCreateAnAccount() {
@@ -82,6 +94,10 @@ class Checkout {
     return cy.get('.showcoupon')
   }
 
+  get placeOrder() {
+    return cy.get('#place_order')
+  }
+
   visit() {
     cy.visit('/checkout')
     return this
@@ -89,6 +105,66 @@ class Checkout {
 
   verifyUrl() {
     cy.url().should('include', '/checkout')
+    return this
+  }
+
+  clickPlaceOrder() {
+    this.placeOrder.click()
+    return this
+  }
+
+  typeFirstName(name) {
+    this.firstName.type(name)
+    return this
+  }
+
+  typeLastName(lastName) {
+    this.lastName.type(lastName)
+    return this
+  }
+
+  typeEmail(email) {
+    this.emailAddress.type(email)
+    return this
+  }
+
+  typePhone(phone) {
+    this.phone.type(phone)
+    return this
+  }
+
+  typeAddress(address) {
+    this.streetAddress.type(address)
+    return this
+  }
+
+  typeCity(city) {
+    this.city.type(city)
+    return this
+  }
+
+  typeState(state) {
+    this.state.type(state)
+    return this
+  }
+
+  selectSpecialState() {
+    this.state.click()
+    this.specialState.first().click()
+    return this
+  }
+
+  typePostcode(zip) {
+    this.postcode.type(zip)
+    return this
+  }
+
+  typeCountry(value) {
+    this.countryField.click()
+    this.country.type(value).then(el => {
+      this.textSpecialCountry.invoke('text').should('equal', value)
+      this.textSpecialCountry.click()
+    })
     return this
   }
 
@@ -106,7 +182,9 @@ class Checkout {
       .should('be.visible')
       .and('have.class', 'validate-required')
     this.phone.should('be.visible').and('have.class', 'validate-required')
-    this.country.should('be.visible').and('have.class', 'validate-required')
+    this.countryField
+      .should('be.visible')
+      .and('have.class', 'validate-required')
     this.streetAddress
       .should('be.visible')
       .and('have.class', 'validate-required')

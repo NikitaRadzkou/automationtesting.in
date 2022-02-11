@@ -1,7 +1,6 @@
-import Basket from "./Basket"
+import Basket from './Basket'
 
 class Item {
-
   get discriptionBtn() {
     return cy.get('.description_tab')
   }
@@ -26,14 +25,26 @@ class Item {
     return cy.xpath("//*[@id='product-165']/div[2]/div[1]/p/span")
   }
 
+  get salePrices() {
+    return cy.get('.price')
+  }
+
   get productTitle() {
     return cy.get('.product_title')
+  }
+
+  get outOfStock() {
+    return cy.get('.out-of-stock')
   }
 
   visit() {
     cy.visit('/product/mastering-javascript')
     return this
-  } 
+  }
+
+  verifyProductUrl() {
+    cy.url().should('include', '/product/')
+  }
 
   clickDiscriptionBtn() {
     this.discriptionBtn.click().should('have.class', 'active')
@@ -60,14 +71,27 @@ class Item {
     return this
   }
 
+  verifySalePrices() {
+    this.salePrices.children().should('be.visible').and('have.length', 2)
+  }
+
+  verfiyOutOfStock() {
+    this.outOfStock.should('be.visible').and('have.text', 'Out of stock')
+  }
 
   verifyTitle(url) {
     cy.visit(url)
     this.productTitle.then($h1 => {
-      const txt1 = $h1.text().replace(/[^a-zа-яё]/gi, '').toLowerCase()
+      const txt1 = $h1
+        .text()
+        .replace(/[^a-zа-яё]/gi, '')
+        .toLowerCase()
       cy.visit('/basket')
       Basket.productTitle.should($a => {
-        const txt2 = $a.text().replace(/[^a-zа-яё]/gi, '').toLowerCase()
+        const txt2 = $a
+          .text()
+          .replace(/[^a-zа-яё]/gi, '')
+          .toLowerCase()
         expect(txt2).to.eq(txt1)
       })
     })
@@ -97,7 +121,9 @@ class Item {
   }
 
   verifyTypeMaxValueInput() {
-    this.valueInput.invoke('prop', 'validationMessage').should('contains', 'Value must be less than or equal')
+    this.valueInput
+      .invoke('prop', 'validationMessage')
+      .should('contains', 'Value must be less than or equal')
   }
 }
 
