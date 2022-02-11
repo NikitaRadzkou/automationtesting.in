@@ -13,10 +13,8 @@ You can choose your download version [here](https://nodejs.org/en/download/)
 Paste in your terminal
 
 ```
-{
   npm install
   npx cypress open
-}
 ```
 
 ---
