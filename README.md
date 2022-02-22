@@ -21,7 +21,7 @@ Paste in your terminal
 
 ## Locations
 
-For this trainning paltform I am use cypress and Page Objects.
+For this training paltform I am use cypress and Page Objects.
 
 All test in the folder cypress/integrations.
 
